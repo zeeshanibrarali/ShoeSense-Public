@@ -86,7 +86,7 @@ function header() {
                     <Link to="/cart">{" "}<img src={cartIcon} alt="account-icon" className="account-icon head-icons" /></Link>
                   </Badge>
                 ) : (
-                  <Link to="/account">{" "}<img src={cartIcon} alt="account-icon" className="account-icon head-icons" /></Link>
+                  <Link to="/cart">{" "}<img src={cartIcon} alt="account-icon" className="account-icon head-icons" /></Link>
                 )}
               </li>
             </ul>
