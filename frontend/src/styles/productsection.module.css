@@ -1,0 +1,52 @@
+.productSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .productBox {
+    width: 23%; /* Adjust the width to a percentage for horizontal alignment */
+    margin: 8px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .productBox img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 8px;
+  }
+  
+  .addToCartButton {
+    background-color: #000000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .filterPanel {
+    flex: 1;
+    margin-left: 10px;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    width: 20%;
+  }
+  
+  .filterPanel input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .productList {
+    flex: 4;
+    padding: 20px;
+    width: 80%; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }

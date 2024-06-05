@@ -1,0 +1,226 @@
+@font-face {
+  font-family: 'DispHeavy';
+  src: url("../assets/fonts/FUTURA76BOLDITALIC.TTF");
+}
+
+.FeaturedContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5%;
+  width: 100%;
+}
+
+.FeaturedSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FeaturedHeading {
+  background-color: #DB4A2B;
+  width: 100%;
+  text-align: center;
+}
+
+.FeaturedHeading h1 {
+  color: white;
+  font-family: DispHeavy;
+  font-size: 6vw;
+  margin: 0;
+  padding: 1rem;
+}
+
+.FeaturedItems {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 90%;
+  margin: 2rem auto;
+  transition: transform 0.5s ease-in-out;
+}
+
+.arrowButton {
+  background-color: #DB4A2B;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 2vw; 
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.prevButton {
+  position: absolute;
+  left: 1%;
+}
+
+.nextButton {
+  position: absolute;
+  right: 1%;
+}
+
+.arrowButton:hover {
+  background-color: #DB7555;
+}
+
+.FeaturedBoxes {
+  background-color: #DB4A2B;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 25%;
+  min-width: 200px;
+  max-width: 300px;
+  transition: transform 0.5s ease-in-out, background-color 0.3s;
+}
+
+.FeaturedBoxes img {
+  border-radius: 20px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.FeaturedBoxes h2 {
+  font-size: 1.5vw; 
+  font-family: DispHeavy;
+  color: white;
+  transition: color 0.3s;
+}
+
+.FeaturedBoxes p {
+  font-size: 1vw; 
+  color: white;
+  transition: color 0.3s;
+}
+
+.FeaturedButtons {
+  background-color: #ffffff;
+  color: #DB4A2B;
+  border: solid 1px black;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1vw; 
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.FeaturedButtons:hover {
+  background-color: #DB4A2B;
+  color: #ffffff;
+}
+
+.FeaturedBoxes:hover {
+  color: #DB4A2B;
+  background-color: black;
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .FeaturedBoxes {
+    width: 30%;
+  }
+
+  .arrowButton {
+    font-size: 2.5vw;
+    padding: 0.8rem;
+  }
+
+  .FeaturedBoxes h2 {
+    font-size: 2vw;
+  }
+
+  .FeaturedBoxes p {
+    font-size: 1.2vw;
+  }
+
+  .FeaturedButtons {
+    font-size: 1.2vw;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .FeaturedBoxes {
+    width: 40%;
+  }
+
+  .arrowButton {
+    font-size: 3vw;
+    padding: 0.7rem;
+  }
+
+  .FeaturedBoxes h2 {
+    font-size: 2.5vw;
+  }
+
+  .FeaturedBoxes p {
+    font-size: 1.5vw;
+  }
+
+  .FeaturedButtons {
+    font-size: 1.5vw;
+    padding: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .FeaturedBoxes {
+    width: 45%;
+  }
+
+  .arrowButton {
+    font-size: 3.5vw;
+    padding: 0.6rem;
+  }
+
+  .FeaturedBoxes h2 {
+    font-size: 3vw;
+  }
+
+  .FeaturedBoxes p {
+    font-size: 1.8vw;
+  }
+
+  .FeaturedButtons {
+    font-size: 1.8vw;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .FeaturedHeading h1 {
+    font-size: 8vw;
+  }
+
+  .FeaturedBoxes {
+    width: 90%;
+  }
+
+  .arrowButton {
+    font-size: 4vw; 
+    padding: 0.5rem;
+  }
+
+  .FeaturedBoxes h2 {
+    font-size: 4vw; 
+  }
+
+  .FeaturedBoxes p {
+    font-size: 2.5vw;
+  }
+
+  .FeaturedButtons {
+    font-size: 2.5vw;
+    padding: 0.5rem;
+  }
+} 

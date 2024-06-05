@@ -1,0 +1,136 @@
+@font-face {
+  font-family: 'DispHeavy';
+  src: url("../assets/fonts/FUTURA76BOLDITALIC.TTF");
+}
+
+.recommendedSection {
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.recommendedSection h1 {
+  background-color: #DB4A2B;
+  width: 100%;
+  text-align: center;
+  font-family: DispHeavy;
+  color: white;
+  font-size: 6vw; /* Responsive font size */
+  margin: 0;
+  padding: 1rem;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+  width: 100%; 
+  overflow: hidden; 
+}
+
+.productsContainer {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: calc(100% * 2); 
+}
+
+.productCard {
+  flex: 0 0 25%; /* Default size for larger screens */
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0 10px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.productCard img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.productInfo {
+  text-align: center;
+}
+
+.productInfo h3 {
+  margin: 10px 0;
+}
+
+.productInfo button {
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navButton {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.navButton:focus {
+  outline: none;
+}
+
+.navButton.left {
+  left: 10px;
+  color: #ff4500;
+}
+
+.navButton.right {
+  right: 10px;
+  color: #ff4500;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .productCard {
+    flex: 0 0 33.33%; /* 3 products per row */
+  }
+
+  .navButton {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .productCard {
+    flex: 0 0 50%; /* 2 products per row */
+  }
+
+  .navButton {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .productCard {
+    flex: 0 0 50%; /* Each product takes up 50% of the container */
+  }
+
+  .navButton {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .productCard {
+    flex: 0 0 100%; /* Each product takes up 100% of the container */
+  }
+
+  .navButton {
+    font-size: 1.2rem;
+  }
+}

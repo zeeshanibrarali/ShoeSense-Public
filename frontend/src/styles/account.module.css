@@ -1,0 +1,128 @@
+.loginBackground {
+    background-image: url('../assets/LoginImage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh; /* Ensure it covers the entire viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.loginBox {
+    background-color: rgba(255, 255, 255, 0.7); /* Use RGBA for better readability */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    width: 30vw;
+    max-width: 500px; /* Max width for larger screens */
+    padding: 2em;
+    transition: width 0.5s, height 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginBox h1 {
+    font-family: ancient;
+    margin: 2vh 0; /* Simplified margin */
+    font-size: 2rem;
+    color: #500f0f;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"] {
+    font-family: poppin;
+    width: calc(100% - 2em);
+    padding: 1em;
+    margin: 0.5em 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.loginbutton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loginbutton button {
+    width: calc(100% - 4em);
+    padding: 1em;
+    margin-top: 0.5em;
+    border: none;
+    border-radius: 4px;
+    background-color: #500f0f;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.loginbutton button:hover {
+    background-color: #0056b3;
+}
+
+.buttons {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.buttons a {
+    color: #0056b3;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.buttons a:hover {
+    color: #500f0f;
+}
+
+/* Media query for responsive design */
+@media screen and (max-width: 768px) {
+    .loginBox {
+        width: 80vw; /* Adjusted to be responsive */
+        padding: 1.5em;
+    }
+
+    .loginBox h1 {
+        font-size: 1.5rem;
+    }
+
+    .loginBox input[type="text"],
+    .loginBox input[type="password"] {
+        padding: 0.75em;
+    }
+
+    .loginbutton button {
+        width: calc(100% - 3em);
+        padding: 0.75em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .loginBox {
+        width: 90vw;
+        padding: 1em;
+    }
+
+    .loginBox h1 {
+        font-size: 1.2rem;
+    }
+
+    .loginBox input[type="text"],
+    .loginBox input[type="password"] {
+        padding: 0.5em;
+    }
+
+    .loginbutton button {
+        width: calc(100% - 2em);
+        padding: 0.5em;
+    }
+}

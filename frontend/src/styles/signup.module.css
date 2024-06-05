@@ -1,0 +1,162 @@
+/* Reset some basic styles */
+/* General Styles */
+.SignupBackground {
+    background-image: url('../assets/SignupImage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Add this line */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden; /* Add this line */
+}
+
+.SignupBox {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    width: 50%;
+    max-width: 600px;
+    padding: 2em;
+    transition: width 0.5s, height 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignupBox h1 {
+    font-family: 'walkester';
+    margin: 1em 0;
+    font-size: 2rem;
+    color: #153448;
+    text-align: center;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.column {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.signupbutton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #46f263;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.signupbutton button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #46f263;
+    color: white;
+    cursor: pointer;
+}
+
+.signupbutton button:hover {
+    background-color: #34b9da;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 1em;
+}
+
+label {
+    color: black;
+}
+
+.link {
+    color: #34b9da;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .SignupBox {
+        width: 80%;
+        padding: 1.5em;
+    }
+
+    .SignupBox h1 {
+        font-size: 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    select {
+        padding: 8px;
+    }
+
+    .signupbutton button {
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .SignupBox {
+        width: 90%;
+        padding: 1em;
+    }
+
+    .SignupBox h1 {
+        font-size: 1.2rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    select {
+        padding: 6px;
+    }
+
+    .signupbutton button {
+        padding: 6px;
+    }
+}
