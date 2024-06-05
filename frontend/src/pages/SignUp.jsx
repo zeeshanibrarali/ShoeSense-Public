@@ -20,6 +20,9 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [correctPass, setCorrectPass] = useState('');
+  const [shoeColorPreference, setShoeColorPreference] = useState([]);
+  const [shoeBrandPreference, setShoeBrandPreference] = useState('');
+  const [priceRangePreference, setPriceRangePreference] = useState('');
 
   const signup = async (e) => {
     e.preventDefault();
@@ -29,7 +32,10 @@ function SignUp() {
       return;
     }
 
-    const userData = { name, gender, age, country, email, password };
+    const userData = {
+      name, gender, age, country, email, password,
+      shoeColorPreference, shoeBrandPreference, priceRangePreference
+    };
 
     try {
       const response = await fetch('http://localhost:3000/signup', {
@@ -54,11 +60,21 @@ function SignUp() {
     }
   };
 
+  const handleColorClick = (color) => {
+    if (shoeColorPreference.includes(color)) {
+      setShoeColorPreference(prevPreferences => prevPreferences.filter(pref => pref !== color));
+    } else {
+      setShoeColorPreference(prevPreferences => [...prevPreferences, color]);
+    }
+  };
+
+  const colors = ["#1A2130", "#FDFFE2", "#FF9EAA", "#987070", "#4F6F52", "white"];
+
   return (
     <div className={`${styles.container} ${styles.SignupBackground}`}>
       <div className={styles.SignupBox}>
         <h1>SignUp To A New Account!</h1>
-        <form onSubmit={signup}>
+        <form onSubmit={signup} className={styles.form}>
           <div className={styles.column}>
             <label htmlFor='name'>Enter your Name:</label>
             <input
@@ -68,37 +84,13 @@ function SignUp() {
               value={name}
               onChange={e => setName(e.target.value)} />
 
-            <label htmlFor='gender'>Choose Your Gender:</label>
-            <select
-              id="gender"
-              value={gender}
-              onChange={e => setGender(e.target.value)}>
-              <option value="">Select...</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-
-            <label htmlFor='age'>Age:</label>
+            <label htmlFor='age'>Date of Birth:</label>
             <input
               id="age"
-              type='number'
-              placeholder='Age'
+              type='date'
               value={age}
               onChange={e => setAge(e.target.value)} />
 
-            <label htmlFor='country'>Select your Country:</label>
-            <select
-              id="country"
-              value={country}
-              onChange={e => setCountry(e.target.value)}>
-              <option value="">Select...</option>
-              {asianCountries.map(country => (
-                <option key={country} value={country}>{country}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className={styles.column}>
             <label htmlFor='email'>Enter your Email:</label>
             <input
               id="email"
@@ -123,13 +115,65 @@ function SignUp() {
               value={correctPass}
               onChange={e => setCorrectPass(e.target.value)} />
           </div>
+
+          <div className={styles.column}>
+            <label htmlFor='gender'>Choose Your Gender:</label>
+            <select
+              id="gender"
+              value={gender}
+              onChange={e => setGender(e.target.value)}>
+              <option value="">Select...</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Rather not say</option>
+            </select>
+
+            <label htmlFor='country'>Select your Country:</label>
+            <select
+              id="country"
+              value={country}
+              onChange={e => setCountry(e.target.value)}>
+              <option value="">Select...</option>
+              {asianCountries.map(country => (
+                <option key={country} value={country}>{country}</option>
+              ))}
+            </select>
+
+            <label htmlFor='shoeBrandPreference'>Shoe Brand Preference:</label>
+            <input
+              id="shoeBrandPreference"
+              type='text'
+              placeholder='Brand Preference'
+              value={shoeBrandPreference}
+              onChange={e => setShoeBrandPreference(e.target.value)} />
+
+            <label htmlFor='priceRangePreference'>Price Range Preference:</label>
+            <input
+              id="priceRangePreference"
+              type='number'
+              placeholder='Price Range'
+              value={priceRangePreference}
+              onChange={e => setPriceRangePreference(e.target.value)} />
+
+            <label htmlFor='shoeColorPreference'>Shoe Color Preference:</label>
+            <div className={styles.colorContainer}>
+              {colors.map(color => (
+                <div
+                  key={color}
+                  className={`${styles.colorCircle} ${shoeColorPreference.includes(color) ? styles.selected : ''}`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => handleColorClick(color)}
+                />
+              ))}
+            </div>
+          </div>
           <div className={styles.signupbutton}>
             <button type="submit">Sign Up</button>
           </div>
+          <div className={styles.loginbutton}>
+            <label htmlFor='login'>Have an account? </label><br /><Link to='/account'>Login</Link>
+          </div>
         </form>
-        <div className={styles.buttons}>
-          <label htmlFor='login'>Have an account? </label><br /><Link to='/account'>Login</Link>
-        </div>
       </div>
     </div>
   );

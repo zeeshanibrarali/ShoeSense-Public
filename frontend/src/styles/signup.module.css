@@ -1,4 +1,3 @@
-/* Reset some basic styles */
 /* General Styles */
 .SignupBackground {
     background-image: url('../assets/SignupImage.jpg');
@@ -9,16 +8,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Add this line */
+    overflow: hidden;
 }
 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Change height to min-height */
     width: 100%;
-    overflow: hidden; /* Add this line */
+    overflow: hidden; 
 }
 
 .SignupBox {
@@ -32,6 +31,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 90vh; /* Set a maximum height to prevent content from disappearing */
+    overflow-y: auto; /* Add vertical scroll if content overflows */
 }
 
 .SignupBox h1 {
@@ -42,24 +43,26 @@
     text-align: center;
 }
 
-form {
+.form {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; 
 }
 
 .column {
-    width: 100%;
-    padding: 0 10px;
+    width: 48%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1em;
+    
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
+input[type="date"],
 select {
     width: 100%;
     padding: 10px;
@@ -69,6 +72,25 @@ select {
     border-radius: 4px;
 }
 
+.colorContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.colorCircle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: solid 1px transparent;
+}
+.colorCircle.selected {
+    border-color: #000000;
+}
+
 .signupbutton {
     width: 100%;
     padding: 10px;
@@ -76,14 +98,14 @@ select {
     margin-bottom: 5px;
     border: none;
     border-radius: 4px;
-    background-color: #46f263;
+    background-color: #c25f1d00;
     color: white;
     cursor: pointer;
     text-align: center;
 }
 
 .signupbutton button {
-    width: 100%;
+    width: 20%; /* Full width on smaller screens */
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -93,7 +115,7 @@ select {
 }
 
 .signupbutton button:hover {
-    background-color: #34b9da;
+    background-color: #da8234;
 }
 
 .buttons {
@@ -102,12 +124,19 @@ select {
 }
 
 label {
-    color: black;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
-.link {
-    color: #34b9da;
-    text-decoration: none;
+.loginbutton {
+    justify-content: center;
+    color: #da8234;
+    text-align: center;
+
+}
+.loginbutton label {
 }
 
 .link:hover {
@@ -115,26 +144,26 @@ label {
 }
 
 /* Media Queries */
+@media screen and (max-width: 1024px) {
+    .SignupBox {
+        width: 70%;
+        padding: 1.5em;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .SignupBox {
         width: 80%;
         padding: 1.5em;
     }
-
-    .SignupBox h1 {
-        font-size: 1.5rem;
+    .form {
+        flex-direction: column; /* Stack columns vertically */
     }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"],
-    select {
-        padding: 8px;
+    .column {
+        width: 100%; /* Full width on smaller screens */
     }
-
-    .signupbutton button {
-        padding: 8px;
+    .signupbutton {
+        width: 100%; /* Ensure button spans full width */
     }
 }
 
@@ -143,20 +172,10 @@ label {
         width: 90%;
         padding: 1em;
     }
-
     .SignupBox h1 {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"],
-    select {
-        padding: 6px;
-    }
-
     .signupbutton button {
-        padding: 6px;
+        padding: 0.75em;
     }
 }
