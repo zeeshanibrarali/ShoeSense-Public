@@ -1,23 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/productsection.module.css';
-import img1 from '../assets/FeaturedSection(Vans).jfif';
-import img2 from '../assets/FeaturedSection(Nike).png';
-import img3 from '../assets/FeaturedSection(Nike2).png';
-import { Link } from 'react-router-dom';
+import { useAuth } from '../context/auth';
+import { useCart } from '../context/cart';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function ProductBox({ img, name, price, description }) {
+function ProductBox({ img, name, price, description, product }) {
+
+  const [auth, setAuth] = useAuth();
+  const [cart, setCart] = useCart();
+
+  const handleAddToCart = (product) => {
+    if (!auth.token) {
+      toast.error('Make sure to log in first to perform this action');
+      return;
+    }
+    setCart([...cart, product]);
+    localStorage.setItem('cart', JSON.stringify([...cart, product]));
+    toast.success('Item added to cart');
+  }
+
   return (
-    <div className={styles.productBox}>
-      <img src={img} alt={name} />
-      <h3>{name}</h3>
-      <p>{price}</p>
-      <p>{description}</p>
-      <button className={styles.addToCartButton}>Add to Cart</button>
-    </div>
+    <>
+      <ToastContainer />
+      <div className={styles.productBox}>
+        <img src={img} alt={name} />
+        <h3>{name}</h3>
+        <p>{price}</p>
+        <p>{description}</p>
+        <button
+          className={styles.addToCartButton}
+          onClick={() => handleAddToCart(product)}>Add to Cart</button>
+      </div>
+    </>
   );
 }
 
 function ProductsSection({ gender }) {
+
+  const [products, setProducts] = useState([]);
+
   const [filters, setFilters] = useState({
     color: '',
     brand: '',
@@ -101,7 +123,21 @@ function ProductsSection({ gender }) {
 
   // ];
 
-  const [products, setProducts] = useState([]);
+  const handleFilterChange = (e) => {
+    setFilters({
+      ...filters,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const filteredProducts = products.filter(product => {
+    return (
+      (!filters.color || product.description.includes(filters.color)) &&
+      (!filters.brand || product.name.includes(filters.brand)) &&
+      (!filters.price || parseFloat(product.price.substring(1)) <= parseFloat(filters.price)) &&
+      (!filters.size || product.description.includes(filters.size))
+    );
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -119,22 +155,6 @@ function ProductsSection({ gender }) {
 
     fetchProducts();
   }, []);
-
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const filteredProducts = products.filter(product => {
-    return (
-      (!filters.color || product.description.includes(filters.color)) &&
-      (!filters.brand || product.name.includes(filters.brand)) &&
-      (!filters.price || parseFloat(product.price.substring(1)) <= parseFloat(filters.price)) &&
-      (!filters.size || product.description.includes(filters.size))
-    );
-  });
 
   return (
     <div className={styles.productSection}>
@@ -166,6 +186,7 @@ function ProductsSection({ gender }) {
             name={product.name}
             price={`$${product.price.$numberDecimal}`}
             description={`Brand: ${product.brand}, Color: ${product.color}, Size: ${product.size}`}
+            product={product}
           />
           // </Link>
         ))}

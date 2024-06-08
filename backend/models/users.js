@@ -6,8 +6,15 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true, maxlength: 255 },
     age: { type: Number },
     gender: { type: String, maxlength: 10 },
+    address: {
+        street: { type: String },
+        city: { type: String },
+        stateOrProvince: { type: String },
+        country: { type: String },
+        postalCode: { type: String }
+    },
     hobbies: { type: String },
-    shoeColorPreference: { type: String, maxlength: 50 },
+    shoeColorPreference: { type: [String], maxlength: 50 },
     shoeBrandPreference: { type: String, maxlength: 100 },
     priceRangePreference: { type: String, maxlength: 50 }
 });

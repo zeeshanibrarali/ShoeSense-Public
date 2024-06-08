@@ -27,7 +27,8 @@ const handleLoginController = async (req, res) => {
             message: "Login Successful",
             user: {
                 name: user.name,
-                email: user.email
+                email: user.email,
+                address: user.address
             },
             token: token
         });

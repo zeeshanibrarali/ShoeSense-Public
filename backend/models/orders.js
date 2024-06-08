@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
     orderDate: { type: Date, default: Date.now },
     totalAmount: { type: mongoose.Decimal128 },
     status: { type: String, maxlength: 50 },
-    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true }]
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true }],
 });
 
 const Order = mongoose.model('Order', orderSchema);

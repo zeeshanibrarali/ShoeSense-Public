@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/signup.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import dobToAge from 'dob-to-age';
 
 function SignUp() {
   const asianCountries = [
@@ -16,6 +17,7 @@ function SignUp() {
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
+  const [dob, setDob] = useState('');
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,9 +25,13 @@ function SignUp() {
   const [shoeColorPreference, setShoeColorPreference] = useState([]);
   const [shoeBrandPreference, setShoeBrandPreference] = useState('');
   const [priceRangePreference, setPriceRangePreference] = useState('');
+  const navigate = useNavigate();
 
   const signup = async (e) => {
     e.preventDefault();
+
+    setAge(dobToAge(dob));
+    console.log(age);
 
     if (password !== correctPass) {
       alert("Passwords do not match!");
@@ -51,8 +57,10 @@ function SignUp() {
 
       if (response.ok) {
         alert(result.message);
+        navigate('/account');
       } else {
         alert(result.message);
+        navigate('/account');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -88,8 +96,8 @@ function SignUp() {
             <input
               id="age"
               type='date'
-              value={age}
-              onChange={e => setAge(e.target.value)} />
+              value={dob}
+              onChange={e => setDob(e.target.value)} />
 
             <label htmlFor='email'>Enter your Email:</label>
             <input

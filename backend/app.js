@@ -11,7 +11,7 @@ const Order = require('./models/orders');
 
 // Controllers
 const { handleLoginController, handleSignupController, handleTestController } = require('./controllers/authController');
-const { featuredProducts, productInfo, productsMen, productsWomen, latestProducts } = require('./controllers/productsController');
+const { featuredProducts, productInfo, productsMen, productsWomen, latestProducts, braintreeTokenController, brainTreePaymentController } = require('./controllers/productsController');
 
 // Middlewares
 const requireSignIn = require('./middlewares/authMiddleware');
@@ -35,6 +35,7 @@ connectDB();
 // Routes
 app.post('/signup', handleSignupController);
 app.post('/login', handleLoginController);
+app.post('/braintree/payment', requireSignIn, brainTreePaymentController);
 
 app.get('/products/featured-products', featuredProducts);
 app.get('/products/latestProducts', latestProducts);
@@ -45,6 +46,8 @@ app.get('/products/women', productsWomen);
 app.get('/checkAuth', requireSignIn, (req, res) => {
     res.status(200).json({ message: 'You are authenticated', ok: true });
 });
+
+app.get('/braintree/token', braintreeTokenController);
 
 app.listen('3000', function () {
     console.log("server is running on Port 3000");
