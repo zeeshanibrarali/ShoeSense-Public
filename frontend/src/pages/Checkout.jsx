@@ -8,17 +8,19 @@ import Header from '../components/header.jsx';
 import { useCart } from '../context/cart.jsx';
 import { useAuth } from '../context/auth.jsx';
 import DropIn from "braintree-web-drop-in-react";
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage = () => {
 
   const companyName = "Shoe Sense";
   const shippingCost = 5;
-  const [cart] = useCart();
+  const [cart, setCart] = useCart();
   const [auth] = useAuth();
   const [clientToken, setClientToken] = useState(null);
   const [instance, setInstance] = useState("");
   const [amountDue, setAmountDue] = useState(0);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // holding checkout form each field value 
   const [email, setEmail] = useState('');
@@ -75,6 +77,7 @@ const CheckoutPage = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
+      console.log('Auth:', auth);  // Add this line to log the auth object
       const response = await fetch("http://localhost:3000/braintree/payment", {
         method: 'POST',
         headers: {
@@ -84,16 +87,17 @@ const CheckoutPage = () => {
         body: JSON.stringify({
           nonce,
           cart,
-
+          auth,
+          totalPrice: amountDue+shippingCost
         })
       });
       const data = await response.json();
       setLoading(false);
       if (response.ok) {
+        toast.success("Payment Completed Successfully");
         localStorage.removeItem("cart");
         setCart([]);
         navigate("/");
-        toast.success("Payment Completed Successfully");
       } else {
         throw new Error(data.message || "Payment failed");
       }
@@ -168,10 +172,7 @@ const CheckoutPage = () => {
               <div>
                 <DropIn
                   options={{
-                    authorization: clientToken,
-                    paypal: {
-                      flow: 'vault'
-                    }
+                    authorization: clientToken
                   }}
                   onInstance={(instance) => setInstance(instance)}
                 />

@@ -1,6 +1,8 @@
 const Product = require('../models/products');
 const Order = require('../models/orders');
 var braintree = require("braintree");
+const mongoose = require('mongoose');
+const { Decimal128 } = mongoose.Types;
 
 
 var gateway = new braintree.BraintreeGateway({
@@ -88,15 +90,15 @@ const braintreeTokenController = async (req, res) => {
 
 const brainTreePaymentController = async (req, res) => {
     try {
-        const { nonce, cart } = req.body;
-        let total = 0;
-        cart.forEach((item) => {
-            total += item.price;
-        });
+        const { nonce, cart, auth, totalPrice } = req.body;
+        // let total = 0;
+        // cart.forEach((item) => {
+        //     total += item.price;
+        // });
 
         gateway.transaction.sale(
             {
-                amount: (total + 5).toFixed(2), // Ensure the total is in correct format for Braintree
+                amount: totalPrice, // Ensure the total is in correct format for Braintree
                 paymentMethodNonce: nonce,
                 options: {
                     submitForSettlement: true,
@@ -106,8 +108,8 @@ const brainTreePaymentController = async (req, res) => {
                 if (result) {
                     try {
                         const order = new Order({
-                            userID: req.user._id,
-                            totalAmount: total,
+                            userID: auth.userData.id,
+                            totalAmount: Decimal128.fromString((parseFloat(totalPrice)).toFixed(2)),
                             status: 'Pending',
                             products: cart.map((item) => item._id),
                         });
