@@ -13,11 +13,16 @@ import AboutUs from '../pages/AboutUs';
 import Cart from '../pages/CartPage';
 import PrivateRoute from '../routes/private';
 import Preferences from '../pages/Preferences';
+import Profile from '../pages/Profile';
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Landing />,
+    },
+    {
+        path: "/Profile",
+        element: <Profile />,
     },
     {
         path: "/latest",
