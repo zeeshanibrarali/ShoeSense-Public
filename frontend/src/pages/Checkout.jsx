@@ -34,8 +34,8 @@ const CheckoutPage = () => {
   // populating checkout form with already available data using state
   useEffect(() => {
     if (auth?.userData) {
-      setEmail(auth.userData.email);
-      setFullName(auth.userData.name);
+      setEmail(auth.userData?.email);
+      setFullName(auth.userData?.name);
       setStreetAddress(auth.userData?.address?.street);
       setCity(auth.userData?.address?.city);
       setStateOrProvince(auth.userData?.address?.stateOrProvince);
@@ -74,6 +74,11 @@ const CheckoutPage = () => {
   }, [auth?.token]);
 
   const handlePay = async () => {
+    if (cart.length === 0) {
+      toast.error("Your cart is empty. Please add items to the cart before checking out.");
+      return;
+    }
+
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
@@ -88,7 +93,7 @@ const CheckoutPage = () => {
           nonce,
           cart,
           auth,
-          totalPrice: amountDue+shippingCost
+          totalPrice: amountDue + shippingCost
         })
       });
       const data = await response.json();
@@ -97,7 +102,9 @@ const CheckoutPage = () => {
         toast.success("Payment Completed Successfully");
         localStorage.removeItem("cart");
         setCart([]);
-        navigate("/");
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
       } else {
         throw new Error(data.message || "Payment failed");
       }

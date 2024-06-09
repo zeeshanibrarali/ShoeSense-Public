@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/signup.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import dobToAge from 'dob-to-age';
+import { useAuth } from '../context/auth';
 
 function SignUp() {
   const asianCountries = [
@@ -14,6 +15,7 @@ function SignUp() {
     "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"
   ];
 
+  // Singup Form Data Management States
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
@@ -25,6 +27,10 @@ function SignUp() {
   const [shoeColorPreference, setShoeColorPreference] = useState([]);
   const [shoeBrandPreference, setShoeBrandPreference] = useState('');
   const [priceRangePreference, setPriceRangePreference] = useState('');
+
+  // Context Custom Hook
+  const [auth, SetAuth] = useAuth();
+
   const navigate = useNavigate();
 
   const signup = async (e) => {
@@ -54,13 +60,19 @@ function SignUp() {
       });
 
       const result = await response.json();
-
       if (response.ok) {
         alert(result.message);
-        navigate('/account');
+        SetAuth({
+          ...auth,
+          token: result.token,
+          userData: result.user
+        });
+        localStorage.setItem('auth', JSON.stringify(result));
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
       } else {
         alert(result.message);
-        navigate('/account');
       }
     } catch (error) {
       console.error('Error:', error);

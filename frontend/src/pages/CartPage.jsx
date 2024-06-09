@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/header.jsx';
 import { useAuth } from '../context/auth';
 import { useCart } from '../context/cart';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CartPage() {
 
@@ -19,6 +21,14 @@ function CartPage() {
     const updatedCart = cart.filter(item => item._id !== id);
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
+  const handleCheckout = () => {
+    if (cart.length === 0) {
+      toast.error("Your cart is empty. Please add items to the cart before checking out.");
+      return;
+    }
+    navigate('/checkout');
   };
 
   return (
@@ -66,9 +76,7 @@ function CartPage() {
             <p>Shipping <span>$5</span></p>
             <p>Subtotal <span>${calculateTotal() + 5}</span></p>
           </div>
-          <Link to="/checkout">
-            <button className={styles.checkoutButton}>Checkout</button>
-          </Link>
+          <button className={styles.checkoutButton} onClick={handleCheckout}>Checkout</button>
         </div>
       </div>
     </>
