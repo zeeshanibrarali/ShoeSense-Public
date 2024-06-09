@@ -59,7 +59,6 @@ function FeaturedProducts() {
 
   return (
     <>
-      <ToastContainer />
       <div className={styles.FeaturedContainer}>
         <button className={`${styles.arrowButton} ${styles.prevButton}`} onClick={() => handleClick('prev')}>&lt;</button>
         <div className={styles.FeaturedSection}>
@@ -83,6 +82,7 @@ function FeaturedProducts() {
         </div>
         <button className={`${styles.arrowButton} ${styles.nextButton}`} onClick={() => handleClick('next')}>&gt;</button>
       </div >
+      <ToastContainer />
     </>
   );
 }

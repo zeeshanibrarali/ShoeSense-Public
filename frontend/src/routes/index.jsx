@@ -64,6 +64,10 @@ const router = createBrowserRouter([
         element: <Preferences />,
     },
     {
+        path: "/preferences",
+        element: <Preferences />,
+    },
+    {
         path: "/products/product-info/:productID",
         element: <ProductInfo />,
     },

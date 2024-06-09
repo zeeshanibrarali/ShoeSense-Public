@@ -47,7 +47,7 @@ const handleLoginController = async (req, res) => {
 
 const handleSignupController = async (req, res) => {
 
-    const { name, email, password, age, gender, hobbies, shoeColorPreference, shoeBrandPreference, priceRangePreference } = req.body;
+    const { name, email, password, age, gender, brandPreference, priceRangePreference, shoeColorPreference, hobbies } = req.body;
 
     try {
         // Check if user already exists
@@ -66,10 +66,10 @@ const handleSignupController = async (req, res) => {
             password: hashedPassword,
             age,
             gender,
-            hobbies,
+            shoeBrandPreference: brandPreference,
+            priceRangePreference,
             shoeColorPreference,
-            shoeBrandPreference,
-            priceRangePreference
+            hobbies
         });
 
         await user.save();
@@ -85,9 +85,12 @@ const handleSignupController = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                address: user.address,
                 age: user.age,
-                gender: user.gender
+                gender: user.gender,
+                shoeBrandPreference: user.shoeBrandPreference,
+                priceRangePreference: user.priceRangePreference,
+                shoeColorPreference: user.shoeColorPreference,
+                hobbies: user.hobbies
             },
             token: token
         });

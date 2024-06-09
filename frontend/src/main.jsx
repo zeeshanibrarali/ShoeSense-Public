@@ -6,6 +6,7 @@ import './index.css';
 import router from './routes';
 import { AuthProvider } from './context/auth';
 import { CartProvider } from './context/cart';
+import { CombinedProvider } from "./context/combined";
 // import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <AuthProvider>
         <CartProvider>
-          <RouterProvider router={router} />
+          <CombinedProvider>
+            <RouterProvider router={router} />
+          </CombinedProvider>
         </CartProvider>
       </AuthProvider>,
     </React.StrictMode>

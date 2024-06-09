@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from '../styles/signup.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import dobToAge from 'dob-to-age';
-import { useAuth } from '../context/auth';
+// import { useAuth } from '../context/auth';
+import { useCombined } from '../context/combined';
 
 function SignUp() {
   const asianCountries = [
@@ -15,71 +16,78 @@ function SignUp() {
     "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"
   ];
 
-  // Singup Form Data Management States
-  const [name, setName] = useState('');
-  const [gender, setGender] = useState('');
-  const [age, setAge] = useState('');
-  const [dob, setDob] = useState('');
-  const [country, setCountry] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [correctPass, setCorrectPass] = useState('');
-<<<<<<< HEAD
-=======
-  const [shoeColorPreference, setShoeColorPreference] = useState([]);
-  const [shoeBrandPreference, setShoeBrandPreference] = useState('');
-  const [priceRangePreference, setPriceRangePreference] = useState('');
-
-  // Context Custom Hook
-  const [auth, SetAuth] = useAuth();
-
->>>>>>> 06aecbc97e107ce912f1e0b55a25a05cd2f1d82e
+  const { combinedData, setCombinedData } = useCombined();
   const navigate = useNavigate();
+
+  // Singup Form Data Management States
+  // const [name, setName] = useState('');
+  // const [gender, setGender] = useState('');
+  // const [age, setAge] = useState('');
+  // const [dob, setDob] = useState('');
+  // const [country, setCountry] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [correctPass, setCorrectPass] = useState('');
 
   const signup = async (e) => {
     e.preventDefault();
+    const age = dobToAge(combinedData.dob);
 
-    setAge(dobToAge(dob));
-    console.log(age);
+    // setAge(dobToAge(dob));
 
-    if (password !== correctPass) {
+    if (combinedData.password !== combinedData.correctPass) {
       alert("Passwords do not match!");
       return;
     }
 
-    const userData = {
-      name, gender, age, country, email, password
-    };
+    setCombinedData((prevData) => ({
+      ...prevData,
+      age,
+    }));
 
-    try {
-      const response = await fetch('http://localhost:3000/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData),
-        credentials: 'include'
-      });
+    navigate('/preferences');
 
-      const result = await response.json();
-      if (response.ok) {
-        alert(result.message);
-        SetAuth({
-          ...auth,
-          token: result.token,
-          userData: result.user
-        });
-        localStorage.setItem('auth', JSON.stringify(result));
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
-      } else {
-        alert(result.message);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
-    }
+    // const userData = {
+    //   name, gender, age, country, email, password
+    // };
+
+    // try {
+    //   const response = await fetch('http://localhost:3000/signup', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(userData),
+    //     credentials: 'include'
+    //   });
+
+    //   const result = await response.json();
+    //   if (response.ok) {
+    //     alert(result.message);
+    //     SetAuth({
+    //       ...auth,
+    //       token: result.token,
+    //       userData: result.user
+    //     });
+    //     localStorage.setItem('auth', JSON.stringify(result));
+    //     setTimeout(() => {
+    //       navigate('/');
+    //     }, 2000);
+    //   } else {
+    //     alert(result.message);
+    //   }
+    // } catch (error) {
+    //   console.error('Error:', error);
+    //   alert('An error occurred. Please try again.');
+    // }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCombinedData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -91,49 +99,55 @@ function SignUp() {
             <label htmlFor='name'>Enter your Name:</label>
             <input
               id="name"
+              name='name'
               type='text'
               placeholder='Name'
-              value={name}
-              onChange={e => setName(e.target.value)} />
+              value={combinedData.name}
+              onChange={handleChange} />
 
             <label htmlFor='age'>Date of Birth:</label>
             <input
-              id="age"
+              id="dob"
+              name='dob'
               type='date'
-              value={dob}
-              onChange={e => setDob(e.target.value)} />
+              value={combinedData.dob}
+              onChange={handleChange} />
 
             <label htmlFor='email'>Enter your Email:</label>
             <input
               id="email"
+              name='email'
               type='email'
               placeholder='Email'
-              value={email}
-              onChange={e => setEmail(e.target.value)} />
+              value={combinedData.email}
+              onChange={handleChange} />
 
             <label htmlFor='password'>Enter your Password:</label>
             <input
               id="password"
+              name='password'
               type='password'
               placeholder='Password'
-              value={password}
-              onChange={e => setPassword(e.target.value)} />
+              value={combinedData.password}
+              onChange={handleChange} />
 
             <label htmlFor='confirmPassword'>Confirm Password:</label>
             <input
-              id="confirmPassword"
+              id="correctPass"
+              name='correctPass'
               type='password'
               placeholder='Confirm Password'
-              value={correctPass}
-              onChange={e => setCorrectPass(e.target.value)} />
+              value={combinedData.correctPass}
+              onChange={handleChange} />
           </div>
 
           <div className={styles.column}>
             <label htmlFor='gender'>Choose Your Gender:</label>
             <select
               id="gender"
-              value={gender}
-              onChange={e => setGender(e.target.value)}>
+              name='gender'
+              value={combinedData.gender}
+              onChange={handleChange}>
               <option value="">Select...</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -143,8 +157,9 @@ function SignUp() {
             <label htmlFor='country'>Select your Country:</label>
             <select
               id="country"
-              value={country}
-              onChange={e => setCountry(e.target.value)}>
+              name='country'
+              value={combinedData.country}
+              onChange={handleChange}>
               <option value="">Select...</option>
               {asianCountries.map(country => (
                 <option key={country} value={country}>{country}</option>
@@ -153,9 +168,9 @@ function SignUp() {
           </div>
 
           <div className={styles.signupbutton}>
-            <Link to="/preferences">
-              <button type="submit">Sign Up</button>
-            </Link>
+            {/* <Link to="/preferences">
+            </Link> */}
+            <button type="submit">Sign Up</button>
           </div>
           <div className={styles.loginbutton}>
             <label htmlFor='login'>Have an account? </label><br /><Link to='/account'>Login</Link>

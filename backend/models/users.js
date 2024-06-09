@@ -13,9 +13,9 @@ const userSchema = new mongoose.Schema({
         country: { type: String },
         postalCode: { type: String }
     },
-    hobbies: { type: String },
+    hobbies: { type: [String] },
     shoeColorPreference: { type: [String], maxlength: 50 },
-    shoeBrandPreference: { type: String, maxlength: 100 },
+    shoeBrandPreference: { type: [String], maxlength: 100 },
     priceRangePreference: { type: String, maxlength: 50 }
 });
 
