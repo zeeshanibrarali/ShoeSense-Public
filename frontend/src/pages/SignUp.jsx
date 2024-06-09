@@ -13,6 +13,10 @@ function SignUp() {
     "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"
   ];
 
+  const priceRanges = [
+    "$0 - $50", "$50 - $100", "$100 - $150", "$150 - $200", "$200 - $250", "$250 - $300", "$300+"
+  ];
+
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
@@ -68,7 +72,7 @@ function SignUp() {
     }
   };
 
-  const colors = ["#1A2130", "#FDFFE2", "#FF9EAA", "#987070", "#4F6F52", "white"];
+  const colors = ["#1A2130", "#FDFFE2", "#FF9EAA", "#987070", "#4F6F52", "#C73659"];
 
   return (
     <div className={`${styles.container} ${styles.SignupBackground}`}>
@@ -148,12 +152,15 @@ function SignUp() {
               onChange={e => setShoeBrandPreference(e.target.value)} />
 
             <label htmlFor='priceRangePreference'>Price Range Preference:</label>
-            <input
+            <select
               id="priceRangePreference"
-              type='number'
-              placeholder='Price Range'
               value={priceRangePreference}
-              onChange={e => setPriceRangePreference(e.target.value)} />
+              onChange={e => setPriceRangePreference(e.target.value)}>
+              <option value="">Select...</option>
+              {priceRanges.map(range => (
+                <option key={range} value={range}>{range}</option>
+              ))}
+            </select>
 
             <label htmlFor='shoeColorPreference'>Shoe Color Preference:</label>
             <div className={styles.colorContainer}>

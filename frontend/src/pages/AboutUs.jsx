@@ -13,8 +13,8 @@ function aboutUs() {
           <img src={img} className={styles.AboutusImg} alt="AboutUsImg" />
         </div>
         <div>
-          <h1>Hi</h1>
-          </div> {/*For heading*/}
+          <h1>dsasasasasasasasaHi</h1>
+          </div> {/*For hesadasdsading*/}
       </div>
       <div></div> {/*For heading*/}
       <div></div> {/*For main text*/}

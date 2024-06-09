@@ -105,7 +105,7 @@ select {
 }
 
 .signupbutton button {
-    width: 20%; /* Full width on smaller screens */
+    width: 20%;
     padding: 10px;
     border: none;
     border-radius: 4px;
@@ -157,13 +157,13 @@ label {
         padding: 1.5em;
     }
     .form {
-        flex-direction: column; /* Stack columns vertically */
+        flex-direction: column;
     }
     .column {
-        width: 100%; /* Full width on smaller screens */
+        width: 100%;
     }
     .signupbutton {
-        width: 100%; /* Ensure button spans full width */
+        width: 100%;
     }
 }
 
