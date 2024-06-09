@@ -30,9 +30,12 @@ const handleLoginController = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                address: user.address,
                 age: user.age,
-                gender: user.gender
+                gender: user.gender,
+                shoeBrandPreference: user.shoeBrandPreference,
+                priceRangePreference: user.priceRangePreference,
+                shoeColorPreference: user.shoeColorPreference,
+                hobbies: user.hobbies
             },
             token: token
         });

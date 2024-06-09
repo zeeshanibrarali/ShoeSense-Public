@@ -48,17 +48,6 @@ function FeaturedProducts() {
 
   return (
     <>
-<<<<<<< HEAD
-      <div className={styles.FeaturedContainer}>
-        <button className={`${styles.arrowButton} ${styles.prevButton}`} onClick={() => handleClick('prev')}>&lt;</button>
-        <div className={styles.FeaturedSection}>
-          <div className={styles.FeaturedHeading}>
-            <h1>FEATURED SECTION</h1>
-          </div>
-          <div className={styles.FeaturedItems}>
-            {products.slice(currentIndex, currentIndex + 3).map(product => (
-              <div key={product._id} className={styles.FeaturedBoxes}>
-=======
       <ToastContainer />
       <div className={styles.featuredSection}>
         <h1>FEATURED SECTION</h1>
@@ -75,13 +64,12 @@ function FeaturedProducts() {
           >
             {products.map(product => (
               <div key={product._id} className={styles.featuredProductCard}>
->>>>>>> e14cc484ff2c6b420925fd790645b8c0eef44b36
                 <Link to={`/products/product-info/${product._id}`}>
                   <img src={product.imageURL} alt={product.alt} />
                   <div className={styles.featuredProductInfo}>
                     <h3>{product.name}</h3>
                     <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
-                  </div>
+                  </div>  
                 </Link>
               </div>
             ))}
@@ -93,13 +81,7 @@ function FeaturedProducts() {
             &gt;
           </button>
         </div>
-<<<<<<< HEAD
-        <button className={`${styles.arrowButton} ${styles.nextButton}`} onClick={() => handleClick('next')}>&gt;</button>
-      </div >
-      <ToastContainer />
-=======
       </div>
->>>>>>> e14cc484ff2c6b420925fd790645b8c0eef44b36
     </>
   );
 }
