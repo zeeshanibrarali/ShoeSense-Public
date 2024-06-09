@@ -1,1 +1,2 @@
 # ShoeSense
+ShoeSense is an e-commerce platform dedicated to selling shoes. The website will feature a sophisticated recommender system that uses content-based filtering to personalize the shopping experience for each user.
