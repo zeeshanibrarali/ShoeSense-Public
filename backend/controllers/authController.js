@@ -21,7 +21,8 @@ const handleLoginController = async (req, res) => {
         }
         const token = await JWT.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "3d",
-        })
+        });
+
         res.status(200).json({
             success: true,
             message: "Login Successful",
@@ -73,13 +74,22 @@ const handleSignupController = async (req, res) => {
 
         await user.save();
 
+        const token = await JWT.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: "3d",
+        });
+
         res.status(201).json({
             success: true,
             message: 'User registered successfully',
             user: {
+                id: user._id,
                 name: user.name,
-                email: user.email
-            }
+                email: user.email,
+                address: user.address,
+                age: user.age,
+                gender: user.gender
+            },
+            token: token
         });
     } catch (err) {
         res.status(500).json({
