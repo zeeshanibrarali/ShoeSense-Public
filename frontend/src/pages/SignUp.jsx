@@ -24,8 +24,6 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [correctPass, setCorrectPass] = useState('');
-<<<<<<< HEAD
-=======
   const [shoeColorPreference, setShoeColorPreference] = useState([]);
   const [shoeBrandPreference, setShoeBrandPreference] = useState('');
   const [priceRangePreference, setPriceRangePreference] = useState('');
@@ -33,7 +31,6 @@ function SignUp() {
   // Context Custom Hook
   const [auth, SetAuth] = useAuth();
 
->>>>>>> 06aecbc97e107ce912f1e0b55a25a05cd2f1d82e
   const navigate = useNavigate();
 
   const signup = async (e) => {

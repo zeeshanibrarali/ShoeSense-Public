@@ -3,224 +3,135 @@
   src: url("../assets/fonts/FUTURA76BOLDITALIC.TTF");
 }
 
-.FeaturedContainer {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.featuredSection {
+  text-align: center;
   margin-top: 5%;
-  width: 100%;
+  margin-bottom: 5%;
 }
 
-.FeaturedSection {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.FeaturedHeading {
+.featuredSection h1 {
   background-color: #DB4A2B;
   width: 100%;
   text-align: center;
-}
-
-.FeaturedHeading h1 {
-  color: white;
   font-family: DispHeavy;
-  font-size: 6vw;
+  color: white;
+  font-size: 6vw; /* Responsive font size */
   margin: 0;
   padding: 1rem;
 }
 
-.FeaturedItems {
+.featuredCarousel {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 2rem;
-  width: 90%;
-  margin: 2rem auto;
+  margin-top: 20px;
+  position: relative;
+  width: 100%; 
+  overflow: hidden; 
+}
+
+.featuredProductsContainer {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: calc(100% * 2); 
+}
+
+.featuredProductCard {
+  flex: 0 0 25%; /* Default size for larger screens */
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0 10px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
   transition: transform 0.5s ease-in-out;
 }
 
-.arrowButton {
-  background-color: #DB4A2B;
+.featuredProductCard img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px;
+}
+
+.featuredProductInfo {
+  text-align: center;
+}
+
+.featuredProductInfo h3 {
+  margin: 10px 0;
+}
+
+.featuredProductInfo button {
+  background-color: #ff4500;
   color: white;
   border: none;
-  border-radius: 50%;
-  padding: 1rem;
-  font-size: 2vw; 
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.prevButton {
-  position: absolute;
-  left: 1%;
-}
-
-.nextButton {
-  position: absolute;
-  right: 1%;
-}
-
-.arrowButton:hover {
-  background-color: #DB7555;
-}
-
-.FeaturedBoxes {
-  background-color: #DB4A2B;
-  text-align: center;
-  padding: 2rem;
-  border-radius: 20px;
-  width: 25%;
-  min-width: 200px;
-  max-width: 300px;
-  transition: transform 0.5s ease-in-out, background-color 0.3s;
-}
-
-.FeaturedBoxes img {
-  border-radius: 20px;
-  width: 100%;
-  height: auto;
-  margin-bottom: 1rem;
-}
-
-.FeaturedBoxes h2 {
-  font-size: 1.5vw; 
-  font-family: DispHeavy;
-  color: white;
-  transition: color 0.3s;
-}
-
-.FeaturedBoxes p {
-  font-size: 1vw; 
-  color: white;
-  transition: color 0.3s;
-}
-
-.FeaturedButtons {
-  background-color: #ffffff;
-  color: #DB4A2B;
-  border: solid 1px black;
-  border-radius: 10px;
-  padding: 1rem;
-  font-size: 1vw; 
+.featuredNavButton {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.3s, color 0.3s;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
 }
 
-.FeaturedButtons:hover {
-  background-color: #DB4A2B;
-  color: #ffffff;
+.featuredNavButton:focus {
+  outline: none;
 }
 
-.FeaturedBoxes:hover {
-  color: #DB4A2B;
-  background-color: black;
-  transform: scale(1.05);
-  transition: 0.3s;
+.featuredNavButton.left {
+  left: 10px;
+  color: #ff4500;
+}
+
+.featuredNavButton.right {
+  right: 10px;
+  color: #ff4500;
 }
 
 /* Responsive styles */
 @media (max-width: 1200px) {
-  .FeaturedBoxes {
-    width: 30%;
+  .featuredProductCard {
+    flex: 0 0 33.33%; /* 3 products per row */
   }
 
-  .arrowButton {
-    font-size: 2.5vw;
-    padding: 0.8rem;
-  }
-
-  .FeaturedBoxes h2 {
-    font-size: 2vw;
-  }
-
-  .FeaturedBoxes p {
-    font-size: 1.2vw;
-  }
-
-  .FeaturedButtons {
-    font-size: 1.2vw;
-    padding: 0.8rem;
+  .featuredNavButton {
+    font-size: 1.8rem;
   }
 }
 
 @media (max-width: 992px) {
-  .FeaturedBoxes {
-    width: 40%;
+  .featuredProductCard {
+    flex: 0 0 50%; /* 2 products per row */
   }
 
-  .arrowButton {
-    font-size: 3vw;
-    padding: 0.7rem;
-  }
-
-  .FeaturedBoxes h2 {
-    font-size: 2.5vw;
-  }
-
-  .FeaturedBoxes p {
-    font-size: 1.5vw;
-  }
-
-  .FeaturedButtons {
-    font-size: 1.5vw;
-    padding: 0.7rem;
+  .featuredNavButton {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
-  .FeaturedBoxes {
-    width: 45%;
+  .featuredProductCard {
+    flex: 0 0 50%; /* Each product takes up 50% of the container */
   }
 
-  .arrowButton {
-    font-size: 3.5vw;
-    padding: 0.6rem;
-  }
-
-  .FeaturedBoxes h2 {
-    font-size: 3vw;
-  }
-
-  .FeaturedBoxes p {
-    font-size: 1.8vw;
-  }
-
-  .FeaturedButtons {
-    font-size: 1.8vw;
-    padding: 0.6rem;
+  .featuredNavButton {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .FeaturedHeading h1 {
-    font-size: 8vw;
+  .featuredProductCard {
+    flex: 0 0 100%; /* Each product takes up 100% of the container */
   }
 
-  .FeaturedBoxes {
-    width: 90%;
+  .featuredNavButton {
+    font-size: 1.2rem;
   }
-
-  .arrowButton {
-    font-size: 4vw; 
-    padding: 0.5rem;
-  }
-
-  .FeaturedBoxes h2 {
-    font-size: 4vw; 
-  }
-
-  .FeaturedBoxes p {
-    font-size: 2.5vw;
-  }
-
-  .FeaturedButtons {
-    font-size: 2.5vw;
-    padding: 0.5rem;
-  }
-} 
+}

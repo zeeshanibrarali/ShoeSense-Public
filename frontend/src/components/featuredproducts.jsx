@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/featuredproducts.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import styles from '../styles/featuredproducts.module.css'; // Assuming this contains the new styles
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCart } from '../context/cart';
@@ -11,17 +11,6 @@ function FeaturedProducts() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
-  const navigate = useNavigate();
-
-  const handleClick = (direction) => {
-    let newIndex;
-    if (direction === 'next') {
-      newIndex = currentIndex === products.length - 3 ? 0 : currentIndex + 1;
-    } else {
-      newIndex = currentIndex === 0 ? products.length - 3 : currentIndex - 1;
-    }
-    setCurrentIndex(newIndex);
-  };
 
   useEffect(() => {
     // Fetch featured products from the server
@@ -55,34 +44,44 @@ function FeaturedProducts() {
     setCart([...cart, product]);
     localStorage.setItem('cart', JSON.stringify([...cart, product]));
     toast.success('Item added to cart');
-  }
+  };
 
   return (
     <>
       <ToastContainer />
-      <div className={styles.FeaturedContainer}>
-        <button className={`${styles.arrowButton} ${styles.prevButton}`} onClick={() => handleClick('prev')}>&lt;</button>
-        <div className={styles.FeaturedSection}>
-          <div className={styles.FeaturedHeading}>
-            <h1>FEATURED SECTION</h1>
-          </div>
-          <div className={styles.FeaturedItems}>
-            {products.slice(currentIndex, currentIndex + 3).map(product => (
-              <div key={product._id} className={styles.FeaturedBoxes}>
+      <div className={styles.featuredSection}>
+        <h1>FEATURED SECTION</h1>
+        <div className={styles.featuredCarousel}>
+          <button 
+            className={`${styles.featuredNavButton} ${styles.left}`} 
+            onClick={() => setCurrentIndex(currentIndex === 0 ? products.length - 3 : currentIndex - 1)}
+          >
+            &lt;
+          </button>
+          <div 
+            className={styles.featuredProductsContainer} 
+            style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+          >
+            {products.map(product => (
+              <div key={product._id} className={styles.featuredProductCard}>
                 <Link to={`/products/product-info/${product._id}`}>
                   <img src={product.imageURL} alt={product.alt} />
-                  <h2>{product.name}</h2>
-                  <p>{product.brand}-{product.style}</p>
+                  <div className={styles.featuredProductInfo}>
+                    <h3>{product.name}</h3>
+                    <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                  </div>
                 </Link>
-                <button className={styles.FeaturedButtons}
-                  onClick={() => handleAddToCart(product)}
-                >Add to Cart</button>
               </div>
             ))}
           </div>
+          <button 
+            className={`${styles.featuredNavButton} ${styles.right}`} 
+            onClick={() => setCurrentIndex(currentIndex === products.length - 3 ? 0 : currentIndex + 1)}
+          >
+            &gt;
+          </button>
         </div>
-        <button className={`${styles.arrowButton} ${styles.nextButton}`} onClick={() => handleClick('next')}>&gt;</button>
-      </div >
+      </div>
     </>
   );
 }
