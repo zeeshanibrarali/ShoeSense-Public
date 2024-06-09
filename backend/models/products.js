@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema({
     imageURL: { type: String, maxlength: 255 },
     score: { type: Number, default: 0 },
     availability: { type: Boolean, default: true },
-    gender: { type: String, enum: ['Male', 'Female', 'Both'] }
+    gender: { type: String, enum: ['male', 'female', 'both'], lowercase: true }
 });
 
 const Product = mongoose.model('Product', productSchema);

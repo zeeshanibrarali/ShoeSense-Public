@@ -12,6 +12,7 @@ import ProductInfo from '../pages/ProductInfo';
 import AboutUs from '../pages/AboutUs';
 import Cart from '../pages/CartPage';
 import PrivateRoute from '../routes/private';
+import Preferences from '../pages/Preferences';
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <SignUp />,
+    },
+    {
+        path: "/preferences",
+        element: <Preferences />,
     },
     {
         path: "/products/product-info/:productID",

@@ -63,8 +63,8 @@ function CartPage() {
             {cart.map((item, index) => (
               <p key={index}>{item.name} <span>{item.price.$numberDecimal}</span></p>
             ))}
-            <p>Shipping <span>$30</span></p>
-            <p>Subtotal <span>{calculateTotal() + 30}</span></p>
+            <p>Shipping <span>$5</span></p>
+            <p>Subtotal <span>${calculateTotal() + 5}</span></p>
           </div>
           <Link to="/checkout">
             <button className={styles.checkoutButton}>Checkout</button>

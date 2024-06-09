@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/signup.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import dobToAge from 'dob-to-age';
 
 function SignUp() {
   const asianCountries = [
@@ -13,23 +14,21 @@ function SignUp() {
     "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"
   ];
 
-  const priceRanges = [
-    "$0 - $50", "$50 - $100", "$100 - $150", "$150 - $200", "$200 - $250", "$250 - $300", "$300+"
-  ];
-
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
+  const [dob, setDob] = useState('');
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [correctPass, setCorrectPass] = useState('');
-  const [shoeColorPreference, setShoeColorPreference] = useState([]);
-  const [shoeBrandPreference, setShoeBrandPreference] = useState('');
-  const [priceRangePreference, setPriceRangePreference] = useState('');
+  const navigate = useNavigate();
 
   const signup = async (e) => {
     e.preventDefault();
+
+    setAge(dobToAge(dob));
+    console.log(age);
 
     if (password !== correctPass) {
       alert("Passwords do not match!");
@@ -37,8 +36,7 @@ function SignUp() {
     }
 
     const userData = {
-      name, gender, age, country, email, password,
-      shoeColorPreference, shoeBrandPreference, priceRangePreference
+      name, gender, age, country, email, password
     };
 
     try {
@@ -55,8 +53,10 @@ function SignUp() {
 
       if (response.ok) {
         alert(result.message);
+        navigate('/account');
       } else {
         alert(result.message);
+        navigate('/account');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -64,20 +64,10 @@ function SignUp() {
     }
   };
 
-  const handleColorClick = (color) => {
-    if (shoeColorPreference.includes(color)) {
-      setShoeColorPreference(prevPreferences => prevPreferences.filter(pref => pref !== color));
-    } else {
-      setShoeColorPreference(prevPreferences => [...prevPreferences, color]);
-    }
-  };
-
-  const colors = ["#1A2130", "#FDFFE2", "#FF9EAA", "#987070", "#4F6F52", "#C73659"];
-
   return (
     <div className={`${styles.container} ${styles.SignupBackground}`}>
       <div className={styles.SignupBox}>
-        <h1>SignUp To A New Account!</h1>
+        <h1>Sign Up To A New Account!</h1>
         <form onSubmit={signup} className={styles.form}>
           <div className={styles.column}>
             <label htmlFor='name'>Enter your Name:</label>
@@ -92,8 +82,8 @@ function SignUp() {
             <input
               id="age"
               type='date'
-              value={age}
-              onChange={e => setAge(e.target.value)} />
+              value={dob}
+              onChange={e => setDob(e.target.value)} />
 
             <label htmlFor='email'>Enter your Email:</label>
             <input
@@ -142,40 +132,12 @@ function SignUp() {
                 <option key={country} value={country}>{country}</option>
               ))}
             </select>
-
-            <label htmlFor='shoeBrandPreference'>Shoe Brand Preference:</label>
-            <input
-              id="shoeBrandPreference"
-              type='text'
-              placeholder='Brand Preference'
-              value={shoeBrandPreference}
-              onChange={e => setShoeBrandPreference(e.target.value)} />
-
-            <label htmlFor='priceRangePreference'>Price Range Preference:</label>
-            <select
-              id="priceRangePreference"
-              value={priceRangePreference}
-              onChange={e => setPriceRangePreference(e.target.value)}>
-              <option value="">Select...</option>
-              {priceRanges.map(range => (
-                <option key={range} value={range}>{range}</option>
-              ))}
-            </select>
-
-            <label htmlFor='shoeColorPreference'>Shoe Color Preference:</label>
-            <div className={styles.colorContainer}>
-              {colors.map(color => (
-                <div
-                  key={color}
-                  className={`${styles.colorCircle} ${shoeColorPreference.includes(color) ? styles.selected : ''}`}
-                  style={{ backgroundColor: color }}
-                  onClick={() => handleColorClick(color)}
-                />
-              ))}
-            </div>
           </div>
+
           <div className={styles.signupbutton}>
-            <button type="submit">Sign Up</button>
+            <Link to="/preferences">
+              <button type="submit">Sign Up</button>
+            </Link>
           </div>
           <div className={styles.loginbutton}>
             <label htmlFor='login'>Have an account? </label><br /><Link to='/account'>Login</Link>

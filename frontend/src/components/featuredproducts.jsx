@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/featuredproducts.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/cart';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useCart } from '../context/cart';
 import { useAuth } from '../context/auth';
 
 function FeaturedProducts() {
