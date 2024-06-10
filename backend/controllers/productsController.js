@@ -73,6 +73,34 @@ const latestProducts = async (req, res) => {
     }
 };
 
+const incrementProductScore = async (req, res) => {
+    const { productID, action } = req.body;
+
+    try {
+        const product = await Product.findById(productID);
+        if (!product) {
+            return res.status(404).json({ success: false, error: 'Product not found' });
+        }
+
+        let incrementValue;
+        if (action === 'click') {
+            incrementValue = 1;
+        } else if (action === 'purchase') {
+            incrementValue = 3;
+        } else {
+            return res.status(400).json({ success: false, error: 'Invalid action' });
+        }
+
+        product.score += incrementValue;
+        await product.save();
+
+        res.json({ success: true, message: 'Product score updated successfully' });
+    } catch (err) {
+        console.error('Error updating product score:', err);  // Log the actual error
+        res.status(500).json({ success: false, error: 'Failed to update product score' });
+    }
+};
+
 const braintreeTokenController = async (req, res) => {
     try {
         gateway.clientToken.generate({}, function (err, response) {
@@ -139,5 +167,6 @@ module.exports = {
     productsWomen,
     latestProducts,
     braintreeTokenController,
-    brainTreePaymentController
+    brainTreePaymentController,
+    incrementProductScore
 };

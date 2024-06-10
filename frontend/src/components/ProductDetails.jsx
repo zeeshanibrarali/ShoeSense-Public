@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { useAuth } from '../context/auth';
@@ -31,6 +31,30 @@ export default function ProductDetails({ product }) {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         navigate('/checkout');
     }
+
+    useEffect(() => {
+        const incrementScore = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/products/score', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productID: product._id, action: 'click' }),
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to update product score');
+                }
+                console.log(data.message);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        incrementScore();
+    }, []);
 
     return (
         <>
