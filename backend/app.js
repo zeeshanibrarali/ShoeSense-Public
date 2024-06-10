@@ -10,7 +10,7 @@ const Product = require('./models/products');
 const Order = require('./models/orders');
 
 // Controllers
-const { handleLoginController, handleSignupController, handleTestController } = require('./controllers/authController');
+const { handleLoginController, handleSignupController, handleTestController, updateAddressControlller } = require('./controllers/authController');
 const { featuredProducts, productInfo, productsMen, productsWomen, latestProducts, braintreeTokenController, brainTreePaymentController } = require('./controllers/productsController');
 
 // Middlewares
@@ -35,6 +35,7 @@ connectDB();
 // Routes
 app.post('/signup', handleSignupController);
 app.post('/login', handleLoginController);
+app.put('/updateAddress', updateAddressControlller);
 app.post('/braintree/payment', requireSignIn, brainTreePaymentController);
 
 app.get('/products/featured-products', featuredProducts);

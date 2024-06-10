@@ -125,6 +125,11 @@ label {
     text-decoration: underline;
 }
 
+.error{
+    color: red;
+    padding-left: 10px;
+}
+
 /* Media Queries */
 @media screen and (max-width: 1024px) {
     .SignupBox {

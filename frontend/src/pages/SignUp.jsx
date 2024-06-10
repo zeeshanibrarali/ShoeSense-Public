@@ -17,6 +17,7 @@ function SignUp() {
   ];
 
   const { combinedData, setCombinedData } = useCombined();
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   // Singup Form Data Management States
@@ -29,8 +30,27 @@ function SignUp() {
   // const [password, setPassword] = useState('');
   // const [correctPass, setCorrectPass] = useState('');
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!combinedData.name) newErrors.name = 'Name is required';
+    if (!combinedData.dob) newErrors.dob = 'Date of Birth is required';
+    if (!combinedData.email) newErrors.email = 'Email is required';
+    if (!combinedData.password) newErrors.password = 'Password is required';
+    if (!combinedData.correctPass) newErrors.correctPass = 'Confirm Password is required';
+    if (combinedData.password !== combinedData.correctPass) newErrors.correctPass = 'Passwords do not match';
+    if (!combinedData.gender) newErrors.gender = 'Gender is required';
+    if (!combinedData.country) newErrors.country = 'Country is required';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const signup = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
     const age = dobToAge(combinedData.dob);
 
     // setAge(dobToAge(dob));
@@ -104,6 +124,7 @@ function SignUp() {
               placeholder='Name'
               value={combinedData.name}
               onChange={handleChange} />
+            {errors.name && <span className={styles.error}>{errors.name}</span>}
 
             <label htmlFor='age'>Date of Birth:</label>
             <input
@@ -112,6 +133,7 @@ function SignUp() {
               type='date'
               value={combinedData.dob}
               onChange={handleChange} />
+            {errors.dob && <span className={styles.error}>{errors.dob}</span>}
 
             <label htmlFor='email'>Enter your Email:</label>
             <input
@@ -121,6 +143,7 @@ function SignUp() {
               placeholder='Email'
               value={combinedData.email}
               onChange={handleChange} />
+            {errors.email && <span className={styles.error}>{errors.email}</span>}
 
             <label htmlFor='password'>Enter your Password:</label>
             <input
@@ -130,6 +153,7 @@ function SignUp() {
               placeholder='Password'
               value={combinedData.password}
               onChange={handleChange} />
+            {errors.password && <span className={styles.error}>{errors.password}</span>}
 
             <label htmlFor='confirmPassword'>Confirm Password:</label>
             <input
@@ -139,6 +163,7 @@ function SignUp() {
               placeholder='Confirm Password'
               value={combinedData.correctPass}
               onChange={handleChange} />
+            {errors.correctPass && <span className={styles.error}>{errors.correctPass}</span>}
           </div>
 
           <div className={styles.column}>
@@ -153,6 +178,7 @@ function SignUp() {
               <option value="female">Female</option>
               <option value="other">Rather not say</option>
             </select>
+            {errors.gender && <span className={styles.error}>{errors.gender}</span>}
 
             <label htmlFor='country'>Select your Country:</label>
             <select
@@ -165,6 +191,7 @@ function SignUp() {
                 <option key={country} value={country}>{country}</option>
               ))}
             </select>
+            {errors.country && <span className={styles.error}>{errors.country}</span>}
           </div>
 
           <div className={styles.signupbutton}>

@@ -16,7 +16,8 @@ function Preferences() {
 
   const brands = ["Nike", "Adidas", "Vans", "Converse", "Puma"];
   const priceRanges = ["$0 - $50", "$50 - $100", "$100 - $150", "$150 - $200", "$200 - $250", "$250 - $300", "$300+"];
-  const colors = ["#1A2130", "#FDFFE2", "#FF9EAA", "#987070", "#4F6F52", "#C73659"];
+  // const colors = ["#1A2130", "#FDFFE2", "#FF9EAA", "#987070", "#4F6F52", "#C73659"];
+  const colors = ["Black", "White", "Pink", "Brown", "Green", "Red"];
   const hobbiesOptions = [
     { label: "Active/Athletic" },
     { label: "Casual/Comfort-Seeker" },

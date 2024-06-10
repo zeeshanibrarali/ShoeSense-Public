@@ -15,7 +15,7 @@ const CheckoutPage = () => {
   const companyName = "Shoe Sense";
   const shippingCost = 5;
   const [cart, setCart] = useCart();
-  const [auth] = useAuth();
+  const [auth, setAuth] = useAuth();
   const [clientToken, setClientToken] = useState(null);
   const [instance, setInstance] = useState("");
   const [amountDue, setAmountDue] = useState(0);
@@ -30,6 +30,41 @@ const CheckoutPage = () => {
   const [stateOrProvince, setStateOrProvince] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
+
+  const updateAddress = async (email, addressData) => {
+    try {
+      const response = await fetch("http://localhost:3000/updateAddress", {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth?.token}`
+        },
+        body: JSON.stringify({
+          email,
+          ...addressData
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update address");
+      }
+      console.log("Address updated successfully");
+      // Update auth context
+      const updatedAuth = {
+        ...auth,
+        userData: {
+          ...auth.userData,
+          address: addressData
+        }
+      };
+
+      // Save updated auth context in local storage
+      localStorage.setItem("auth", JSON.stringify(updatedAuth));
+      setAuth(updatedAuth);
+    } catch (error) {
+      console.log("Error updating address: " + error.message);
+    }
+  };
 
   // populating checkout form with already available data using state
   useEffect(() => {
@@ -82,7 +117,17 @@ const CheckoutPage = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
-      console.log('Auth:', auth);  // Add this line to log the auth object
+
+      // Update address
+      const addressData = {
+        street: streetAddress,
+        city,
+        stateOrProvince,
+        country,
+        postalCode,
+      };
+      await updateAddress(auth?.userData?.email, addressData);
+
       const response = await fetch("http://localhost:3000/braintree/payment", {
         method: 'POST',
         headers: {

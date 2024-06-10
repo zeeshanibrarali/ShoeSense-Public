@@ -106,6 +106,31 @@ const handleSignupController = async (req, res) => {
     }
 }
 
+const updateAddressControlller = async (req, res) => {
+    const { email, street, city, stateOrProvince, country, postalCode } = req.body;
+    console.log(email);
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.address = {
+            street,
+            city,
+            stateOrProvince,
+            country,
+            postalCode,
+        };
+
+        await user.save();
+        res.status(200).json({ message: 'Address updated successfully' });
+    } catch (error) {
+        console.error('Error updating address:', error);
+        res.status(500).json({ message: 'Server error', error });
+    }
+};
+
 const handleTestController = async (req, res) => {
     res.send("You Got into Test");
 }
@@ -113,5 +138,6 @@ const handleTestController = async (req, res) => {
 module.exports = {
     handleLoginController,
     handleSignupController,
+    updateAddressControlller,
     handleTestController
 };
