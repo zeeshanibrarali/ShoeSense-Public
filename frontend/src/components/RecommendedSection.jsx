@@ -122,8 +122,10 @@ const RecommendedSection = () => {
 
         console.log('Received recommendations:', response.data);
         console.log('Type of recommendations:', typeof response.data);
+        const dataString = JSON.stringify(response.data);
 
-        const cleanedData = response.data.replace(/NaN/g, 'null');
+        // Replace any occurrences of 'NaN' with 'null'
+        const cleanedData = dataString.replace(/NaN/g, 'null');
 
         // Parse the cleaned data as JSON
         const jsonData = JSON.parse(cleanedData);
