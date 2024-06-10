@@ -25,7 +25,7 @@ function ProductBox({ img, name, price, description, product }) {
       <ToastContainer />
       <div className={styles.productBox}>
         <img src={img} alt={name} />
-        <h3>{name}</h3>
+        <h3>{product.name && product.name.length > 15 ? `${product.name.substring(0, 15)}...` : product.name}</h3>
         <p>{price}</p>
         <p>{description}</p>
         <button
