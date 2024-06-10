@@ -9,7 +9,10 @@ function Latest() {
     <div>
       <Header />
       <div className={styles.heading}>
-        <h1>Latest Products</h1>
+        <h1>LATEST PRODUCTS</h1>
+      </div>
+      <div className={styles.CLA}>
+        <p>Don't Miss Out! Shop Now and Find Your Perfect Fit with Our Newest Styles. Experience Unmatched Comfort and Trend-Setting Designs Today!</p>
       </div>
 
       <Productssection gender={"latestProducts"} />
