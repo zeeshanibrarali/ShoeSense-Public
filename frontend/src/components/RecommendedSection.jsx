@@ -62,10 +62,13 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/auth';
 import axios from 'axios';
 import styles from '../styles/RecommendedSection.module.css';
+import { Link } from 'react-router-dom';
+import { useCart } from '../context/cart';
 
 const RecommendedSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [auth] = useAuth();
+  const [auth, setAuth] = useAuth();
+  const [cart, setCart] = useCart();
   const [recommendations, setRecommendations] = useState([]);
   // const products = [
   //   { id: 1, name: 'Nike Airforce', image: img1 },
@@ -90,6 +93,16 @@ const RecommendedSection = () => {
       const newIndex = prevIndex === recommendations.length - 9 ? 0 : prevIndex + 1;
       return newIndex >= recommendations.length ? 0 : newIndex;
     });
+  };
+
+  const handleAddToCart = (product) => {
+    if (!auth.token) {
+      toast.error('Make sure to log in first to perform this action');
+      return;
+    }
+    setCart([...cart, product]);
+    localStorage.setItem('cart', JSON.stringify([...cart, product]));
+    toast.success('Item added to cart');
   };
 
   useEffect(() => {
@@ -148,11 +161,13 @@ const RecommendedSection = () => {
         <div className={styles.productsContainer} style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {recommendations.map((product) => (
             <div key={product.id} className={styles.productCard}>
-              {product.imageURLs && <img src={product.imageURLs} alt={product.name} />}
-              <div className={styles.productInfo}>
-                {product.name && <h3>{product.name}</h3>}
-                <button>Add to Cart</button>
-              </div>
+              <Link to={`/products/product-info/${product.id}`}>
+                {product.imageURLs && <img src={product.imageURLs} alt={product.name} />}
+                <div className={styles.productInfo}>
+                  {product.name && <h3>{product.name}</h3>}
+                  <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
