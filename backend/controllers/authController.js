@@ -35,7 +35,8 @@ const handleLoginController = async (req, res) => {
                 shoeBrandPreference: user.shoeBrandPreference,
                 priceRangePreference: user.priceRangePreference,
                 shoeColorPreference: user.shoeColorPreference,
-                hobbies: user.hobbies
+                hobbies: user.hobbies,
+                address: user.address,
             },
             token: token
         });
@@ -93,7 +94,8 @@ const handleSignupController = async (req, res) => {
                 shoeBrandPreference: user.shoeBrandPreference,
                 priceRangePreference: user.priceRangePreference,
                 shoeColorPreference: user.shoeColorPreference,
-                hobbies: user.hobbies
+                hobbies: user.hobbies,
+                address: user.address,
             },
             token: token
         });
@@ -124,7 +126,21 @@ const updateAddressControlller = async (req, res) => {
         };
 
         await user.save();
-        res.status(200).json({ message: 'Address updated successfully' });
+        res.status(200).json({
+            message: 'Address updated successfully',
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                age: user.age,
+                gender: user.gender,
+                shoeBrandPreference: user.shoeBrandPreference,
+                priceRangePreference: user.priceRangePreference,
+                shoeColorPreference: user.shoeColorPreference,
+                hobbies: user.hobbies,
+                address: user.address,
+            },
+        });
     } catch (error) {
         console.error('Error updating address:', error);
         res.status(500).json({ message: 'Server error', error });

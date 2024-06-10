@@ -53,8 +53,7 @@ const CheckoutPage = () => {
       const updatedAuth = {
         ...auth,
         userData: {
-          ...auth.userData,
-          address: addressData
+          ...data.user,
         }
       };
 

@@ -2,11 +2,25 @@ import React from 'react';
 import styles from '../styles/profile.module.css';
 import Header from '../components/header';
 import { useAuth } from '../context/auth';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
 
-    const [auth] = useAuth();
+    const [auth, setAuth] = useAuth();
     const { userData } = auth;
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Clear auth context
+        setAuth({
+            userData: null,
+            token: ''
+        });
+        // Clear local storage
+        localStorage.removeItem("auth");
+        // Navigate to landing page
+        navigate('/');
+    };
 
     if (!userData) {
         return <p>Loading...</p>;
@@ -52,6 +66,8 @@ function Profile() {
                     <p className={styles.shoeColorPreference}><strong>Shoe Color Preference:</strong> {shoeColorPreference.join(', ')}</p>
                     <p className={styles.hobbies}><strong>Hobbies:</strong> {hobbies.join(', ')}</p>
                 </div>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                    onClick={handleLogout}>Log Out</button>
             </div>
         </div>
     );
