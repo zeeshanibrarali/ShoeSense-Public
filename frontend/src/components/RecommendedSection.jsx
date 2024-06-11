@@ -1,63 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { useAuth } from '../context/auth';
-// import axios from 'axios';
-// import styles from '../styles/RecommendedSection.module.css';
-import img1 from '../assets/FeaturedSection(Vans).jfif';
-import img2 from '../assets/FeaturedSection(Nike).png';
-import img3 from '../assets/FeaturedSection(Nike2).png';
-
-// const RecommendedSection = () => {
-//   const [currentIndex, setCurrentIndex] = useState(0);
-//   const [auth, setAuth] = useAuth();
-
-
-// const products = [
-//   { id: 1, name: 'Nike Airforce', image: img1 },
-//   { id: 2, name: 'Adidas Samba', image: img2 },
-//   { id: 3, name: 'Vans White', image: img3 },
-//   { id: 4, name: 'Product 4', image: img1 },
-//   { id: 5, name: 'Nike Airforce', image: img1 },
-//   { id: 6, name: 'Adidas Samba', image: img2 },
-//   { id: 7, name: 'Vans White', image: img3 },
-//   { id: 8, name: 'Product 4', image: img1 },
-// ];
-
-//   const prevProduct = () => {
-//     setCurrentIndex((prevIndex) => (prevIndex === 0 ? products.length - 4 : prevIndex - 1));
-//   };
-
-//   const nextProduct = () => {
-//     setCurrentIndex((prevIndex) => (prevIndex === products.length - 4 ? 0 : prevIndex + 1));
-//   };
-
-//   return (
-//     <div className={styles.recommendedSection}>
-//       <h1>RECOMMENDED SECTION</h1>
-//       <div className={styles.carousel}>
-//         <button className={`${styles.navButton} ${styles.left}`} onClick={prevProduct}>
-//           &lt;
-//         </button>
-//         <div className={styles.productsContainer} style={{ transform: `translateX(-${currentIndex * 25}%)` }}>
-// {products.map((product, index) => (
-//   <div key={product.id} className={styles.productCard}>
-//     <img src={product.image} alt={product.name} />
-//     <div className={styles.productInfo}>
-//       <h3>{product.name}</h3>
-//       <button>Add to Cart</button>
-//     </div>
-//   </div>
-// ))}
-//         </div>
-//         <button className={`${styles.navButton} ${styles.right}`} onClick={nextProduct}>
-//           &gt;
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default RecommendedSection;
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/auth';
 import axios from 'axios';
@@ -70,16 +10,6 @@ const RecommendedSection = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
   const [recommendations, setRecommendations] = useState([]);
-  // const products = [
-  //   { id: 1, name: 'Nike Airforce', image: img1 },
-  //   { id: 2, name: 'Adidas Samba', image: img2 },
-  //   { id: 3, name: 'Vans White', image: img3 },
-  //   { id: 4, name: 'Product 4', image: img1 },
-  //   { id: 5, name: 'Nike Airforce', image: img1 },
-  //   { id: 6, name: 'Adidas Samba', image: img2 },
-  //   { id: 7, name: 'Vans White', image: img3 },
-  //   { id: 8, name: 'Product 4', image: img1 },
-  // ];
 
   const prevProduct = () => {
     setCurrentIndex((prevIndex) => {
@@ -107,6 +37,7 @@ const RecommendedSection = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(auth.userData)
       if (!auth.userData) {
         console.log('No user data available');
         return;
@@ -126,6 +57,11 @@ const RecommendedSection = () => {
         if (auth.userData.priceRangePreference) {
           params.max_price = auth.userData.priceRangePreference.replace(/\$/g, '').replace(/\s/g, '');
         }
+
+        params.age = auth.userData.age;
+        params.gender = auth.userData.gender;
+        params.country = "Pakistan";
+        params.hobbies = auth.userData.hobbies[0];
 
         console.log('Fetching recommendations with preferences:', params);
 
@@ -165,6 +101,8 @@ const RecommendedSection = () => {
                 {product.imageURLs && <img src={product.imageURLs} alt={product.name} />}
                 <div className={styles.productInfo}>
                   {product.name && <h3>{product.name}</h3>}
+                  {product.price && <h3>Price: {product.price}</h3>}
+                  {product.color && <h3>Color: {product.color}</h3>}
                   <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
                 </div>
               </Link>

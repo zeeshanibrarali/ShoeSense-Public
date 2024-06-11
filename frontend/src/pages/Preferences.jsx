@@ -19,10 +19,10 @@ function Preferences() {
   // const colors = ["#1A2130", "#FDFFE2", "#FF9EAA", "#987070", "#4F6F52", "#C73659"];
   const colors = ["Black", "White", "Pink", "Brown", "Green", "Red"];
   const hobbiesOptions = [
-    { label: "Active/Athletic" },
-    { label: "Casual/Comfort-Seeker" },
-    { label: "Adventurous/Outdoor Enthusiast" },
-    { label: "Minimalist/Practical" }
+    { label: "Hiking" },
+    { label: "Travelling" },
+    { label: "Sports" },
+    { label: "Dancing" }
   ];
 
   const handleColorClick = (color) => {
