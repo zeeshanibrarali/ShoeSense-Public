@@ -33,7 +33,7 @@ app.use(cors(
 
 connectDB();
 
-app.use(express.static(path.resolve(__dirname, "frontend", "build")));
+app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
 
 // Routes
 // POST
@@ -46,7 +46,7 @@ app.put('/updateAddress', updateAddressControlller);
 
 // GET
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "backend", "frontend", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 });
 
 app.get('/products/featured-products', featuredProducts);
