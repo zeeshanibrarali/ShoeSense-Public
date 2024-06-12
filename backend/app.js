@@ -46,8 +46,8 @@ app.put('/updateAddress', updateAddressControlller);
 
 // GET
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-}); 
+    res.sendFile(path.resolve(__dirname, "backend", "frontend", "build", "index.html"));
+});
 
 app.get('/products/featured-products', featuredProducts);
 app.get('/products/latestProducts', latestProducts);
