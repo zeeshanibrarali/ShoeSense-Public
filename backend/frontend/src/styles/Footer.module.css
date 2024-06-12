@@ -1,0 +1,79 @@
+.FooterSectionContainer {
+  margin-top: 2%;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  padding: 20px 0; 
+}
+
+.ColumnDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 5%; 
+}
+
+.Slogan {
+  text-align: center; 
+}
+
+.Slogan h1 {
+  color: #dd3d1995;
+  font-size: 3vw; 
+  margin: 10px 0;
+  font-family: futuralight; 
+}
+
+.Slogan p {
+  font-family: DispHeavy;
+  color: #DB4A2B;
+  font-size: 6vw; /* Responsive font size */
+  letter-spacing: -4px;
+  margin: 10px 0; /* Added margin for spacing */
+}
+
+.Addressdiv {
+  color: rgb(255, 255, 255);
+  font-family: 'futuralight';
+  text-align: left;
+  margin-top: 0px; 
+  font-size: 1vw;
+}
+
+.SocialIcons {
+  margin-top: 10px; /* Space above icons */
+  display: flex;
+  gap: 40px; /* Space between icons */
+}
+
+.SocialIcons a {
+  color: white; /* Icon color */
+  font-size: 1.5rem; /* Icon size */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.SocialIcons a:hover {
+  color: #DB4A2B; /* Change color on hover */
+}
+
+@media (max-width: 768px) {
+  .ColumnDiv {
+    flex-direction: column; /* Stack columns vertically */
+    align-items: center;
+    text-align: center; /* Center text on smaller screens */
+  }
+
+  .Slogan p {
+    font-size: 7vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .Slogan h1 {
+    font-size: 1.2rem; /* Adjusted font size for very small screens */
+  }
+
+  .Slogan p {
+    font-size: 8vw; /* Further adjusted font size for very small screens */
+  }
+}

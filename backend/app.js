@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 // Models
 const User = require('./models/users');
@@ -42,17 +43,22 @@ app.post('/braintree/payment', requireSignIn, brainTreePaymentController);
 app.put('/updateAddress', updateAddressControlller);
 
 // GET
+app.get("/", (req, res) => {
+    app.use(express.static(path.resolve(__dirname, "frontend", "build")));
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
+
 app.get('/products/featured-products', featuredProducts);
 app.get('/products/latestProducts', latestProducts);
 app.get('/products/product-info/:productID', productInfo);
 app.get('/products/men', productsMen);
 app.get('/products/women', productsWomen);
+app.get('/braintree/token', braintreeTokenController);
 
 app.get('/checkAuth', requireSignIn, (req, res) => {
     res.status(200).json({ message: 'You are authenticated', ok: true });
 });
 
-app.get('/braintree/token', braintreeTokenController);
 
 app.listen('3000', function () {
     console.log("server is running on Port 3000");

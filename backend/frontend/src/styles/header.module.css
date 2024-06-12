@@ -1,0 +1,151 @@
+.logodiv {
+  position: relative;
+  margin-top: 0%;
+  margin-bottom: -1.5%;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 50%;
+  height: 50%;
+  margin: 0 auto;
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+.mainNavbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLinks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.navLinks li {
+  padding: 0rem 1.8rem;
+  position: relative;
+  display: inline-block;
+}
+
+.navLinks li a {
+  text-decoration: none;
+  color: #DB4A2B;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+}
+
+.navLinks li a::after {
+  content: "";
+  position: absolute;
+  bottom: 1%;
+  left: 0;
+  width: 0;
+  height: 10%;
+  background-color: black;
+  transition: width 0.4s ease-in-out;
+}
+
+.navLinks li a:hover::after {
+  width: 100%;
+}
+
+
+.navAnchor {
+  text-decoration: none;
+  color: #DB4A2B;
+  font-weight: 500;
+}
+
+.icon_container ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.icon_container img {
+  height: 2.1rem;
+}
+
+.icon_container li {
+  text-decoration: none;
+  list-style-type: none;
+  position: relative;
+}
+
+.icon_container li a {
+  position: relative;
+  display: inline-block;
+}
+
+.icon_container li a::after {
+  content: "";
+  position: absolute;
+  bottom: -25%;
+  height: 8%;
+  background-color: #DB4A2B;
+  transition: width 0.4s ease-in-out;
+}
+
+.icon_container li a:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .logoDiv {
+    margin-bottom: 10p;
+  }
+
+  .logo {
+    width: 25%;
+    height: 25%;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+  }
+  .mainNavbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navLinks {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .navLinks li {
+    padding: 0.5rem 1rem;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+    font-size: small;
+  }
+
+  .navLinks li a::after {
+    height: 10%;
+  }
+
+  .icon_container ul {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .icon_container img {
+    height: 1.8rem;
+  }
+
+  .icon_container li a::after {
+    height: 10%;
+  }
+}

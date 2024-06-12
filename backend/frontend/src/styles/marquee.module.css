@@ -1,0 +1,27 @@
+.marquee {
+    margin-top: 5%;
+    background-color: transparent;
+    padding: 0px 0;
+    overflow: hidden;
+  }
+  
+  .marqueeContent {
+    display: flex;
+    gap: 5rem;
+    padding: 0 2rem;
+    animation: marqueeAnimation 52s linear infinite;
+  }
+  
+  .smallLogo {
+    width: 40px;
+    height: auto;
+  }
+  
+  @keyframes marqueeAnimation {
+    100% {
+      transform: translateX(-50%); 
+    }
+    100% {
+      transform: translateX(-50%); 
+    }
+  }
