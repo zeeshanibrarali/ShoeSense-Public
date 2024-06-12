@@ -33,6 +33,8 @@ app.use(cors(
 
 connectDB();
 
+app.use(express.static(path.resolve(__dirname, "frontend", "build")));
+
 // Routes
 // POST
 app.post('/signup', handleSignupController);
@@ -44,7 +46,6 @@ app.put('/updateAddress', updateAddressControlller);
 
 // GET
 app.get("/", (req, res) => {
-    app.use(express.static(path.resolve(__dirname, "frontend", "build")));
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
 });
 
@@ -58,7 +59,6 @@ app.get('/braintree/token', braintreeTokenController);
 app.get('/checkAuth', requireSignIn, (req, res) => {
     res.status(200).json({ message: 'You are authenticated', ok: true });
 });
-
 
 app.listen('3000', function () {
     console.log("server is running on Port 3000");
